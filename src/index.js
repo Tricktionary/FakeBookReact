@@ -11,7 +11,7 @@ import Home from "./view/home"
 import UploadForm from "./view/upload_form"
 
 const client = new ApolloClient({
-    uri: 'http://localhost:4000',
+    uri: 'http://localhost:4000/graphql',
   });
 
   const App = () => (
