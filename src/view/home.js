@@ -28,8 +28,8 @@ export function Home(){
         <div style={pageSection}>
             <h1>FakeBook</h1>
             {data.allSongs.map( ({ id, name }) => (
-                <div>
-                    {id}: {name}
+                <div key={id}>
+                    ID:{id} || Song Name: {name}
                 </div>
             ))}
             </div>

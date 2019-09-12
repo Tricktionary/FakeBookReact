@@ -1,4 +1,6 @@
 import React from 'react';
+import gql from 'graphql-tag';
+import { useMutation } from '@apollo/react-hooks'
 
 const marginTop = {
     marginTop: '20px'
@@ -9,11 +11,23 @@ const pageSection = {
     width: '80%'
 }
 
+const CREATE_FORM = gql`
+    mutation{
+        createSong( name:"test", pageRangeStart:1, pageRangeEnd:3, pageCount:4){
+            song{
+                name
+            }
+        }
+    }
+`;
+ 
 class UploadForm extends React.Component{
+ 
     constructor(props) {
         super(props);
         this.state = {
-            book_title: '',};
+            name: '',
+        };
 
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -37,16 +51,50 @@ class UploadForm extends React.Component{
     render() {
         return (
             <div style={pageSection}>
-                <h1>Book Upload Form</h1>
+                <h1>Song Upload Form</h1>
                 
                 <form className="ui form" onSubmit={this.handleSubmit}>
-                    <label> Book Tile: </label>
-                    <input
-                        name="numberOfGuests"
-                        type="text"
-                        value={this.state.book_title}
-                        onChange={this.handleInputChange} />
-                    <br/>
+                    
+                    <div className="field">
+                        <label style={marginTop} > Song Name </label>
+                        <input
+                            name="numberOfGuests"
+                            type="text"
+                            value={this.state.name}
+                            onChange={this.handleInputChange} />
+                        <br/>
+                    </div>
+
+                    <div className="field"> 
+                        <label style={marginTop} > Page Range Start </label>
+                        <input
+                            name="numberOfGuests"
+                            type="text"
+                            value={this.state.page_range_start}
+                            onChange={this.handleInputChange} />
+                        <br/>
+                    </div>
+
+                    <div className="field"> 
+                        <label style={marginTop} > Page Range End </label>
+                        <input
+                            name="numberOfGuests"
+                            type="text"
+                            value={this.state.page_range_end}
+                            onChange={this.handleInputChange} />
+                        <br/>
+                    </div>
+
+                    <div className="field"> 
+                        <label style={marginTop} > Page Count </label>
+                        <input
+                            name="numberOfGuests"
+                            type="text"
+                            value={this.state.page_count}
+                            onChange={this.handleInputChange} />
+                        <br/>
+                    </div>
+
                     <input style={marginTop} className="ui button" type="submit" value="Submit" />
                 </form>
 
