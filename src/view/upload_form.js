@@ -26,7 +26,10 @@ class UploadForm extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            name: '',
+            song_name: '',
+            page_range_start: 0,
+            page_range_end:0, 
+            page_count:0
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -37,14 +40,15 @@ class UploadForm extends React.Component{
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
-
+        
         this.setState({
             [name]: value
         });
     }
         
     handleSubmit(event) {
-        alert('These Values were submitted: ' + this.state.book_title);
+        alert('These Values were submitted: ' + this.state.page_range_start);
+        const [addTodo, { data }] = useMutation(CREATE_FORM);
         /* Create Query to GraphQL API*/
         event.preventDefault();
     }
@@ -58,9 +62,9 @@ class UploadForm extends React.Component{
                     <div className="field">
                         <label style={marginTop} > Song Name </label>
                         <input
-                            name="numberOfGuests"
+                            name="song_name"
                             type="text"
-                            value={this.state.name}
+                            value={this.state.song_name}
                             onChange={this.handleInputChange} />
                         <br/>
                     </div>
@@ -68,7 +72,7 @@ class UploadForm extends React.Component{
                     <div className="field"> 
                         <label style={marginTop} > Page Range Start </label>
                         <input
-                            name="numberOfGuests"
+                            name="page_range_start"
                             type="text"
                             value={this.state.page_range_start}
                             onChange={this.handleInputChange} />
@@ -78,7 +82,7 @@ class UploadForm extends React.Component{
                     <div className="field"> 
                         <label style={marginTop} > Page Range End </label>
                         <input
-                            name="numberOfGuests"
+                            name="page_range_end"
                             type="text"
                             value={this.state.page_range_end}
                             onChange={this.handleInputChange} />
@@ -88,7 +92,7 @@ class UploadForm extends React.Component{
                     <div className="field"> 
                         <label style={marginTop} > Page Count </label>
                         <input
-                            name="numberOfGuests"
+                            name="page_count"
                             type="text"
                             value={this.state.page_count}
                             onChange={this.handleInputChange} />
