@@ -12,11 +12,11 @@ import UploadForm from "./view/upload_form"
 
 const client = new ApolloClient({
     uri: 'http://localhost:4000/graphql',
-  });
+});
 
-  const App = () => (
+
+const App = () => (
   <ApolloProvider client={client}>
-    <div>
         <NavBar/>
         <Router>
             <Switch>
@@ -25,8 +25,7 @@ const client = new ApolloClient({
                 <Route path='/test' component={Test} />
             </Switch>
         </Router>
-    </div>
-  </ApolloProvider>
+   </ApolloProvider>
 );
 
 render(<App/>, document.getElementById('root'));
