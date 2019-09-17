@@ -28,7 +28,16 @@ export default class MenuExampleBasic extends Component {
           active={activeItem === 'uploadForm'}
           onClick={this.handleItemClick}
         >
-          Upload Form
+          Upload Book
+        </Menu.Item>
+
+        <Menu.Item
+          name='createSong'
+          href="/create_song"
+          active={activeItem === 'createSong'}
+          onClick={this.handleItemClick}
+        >
+          Create Song Form
         </Menu.Item>
       </Menu>
     )

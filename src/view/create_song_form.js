@@ -82,23 +82,11 @@ export function UploadForm(){
                     <label>Total Range Count</label>
                     <input type="number" name="pageCount" placeholder="0" onChange={function(e){hangeInputChange(e)}}/>
                 </div>
-
-                <div className="field">
-                    <label>FakeBook PDF</label>
-                    <input type="file" />
-                </div>
-
-                <div className="field">
-                    <label>FakeBook CSV</label>
-                    <input type="file" />
-                </div>
                 
                 <div className="field"> 
                     <button className="ui button green" type="submit">Upload Song</button>
                 </div>
-
-
-
+                
             </form>
         </div>
       );
