@@ -15,6 +15,7 @@
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.88.1",
     "tailwind-react-ui": "^0.8.1",
+    "webpack-manifest-plugin": "^2.0.4",
     "zen-observable": "^0.8.14"
   },
   "scripts": {

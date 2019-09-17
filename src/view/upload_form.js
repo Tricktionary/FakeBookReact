@@ -27,6 +27,25 @@ export function UploadForm(){
     const [uploadMutation] = useMutation(SUBMIT_FORM);
 
 
+    let hangeInputChange = function(e){
+        switch(e.target.name){
+            case "name":
+                setName(e.target.value);
+                break;
+            case "pageRangeStart":
+                setPageRangeStart(e.target.value);
+                break;
+            case "pageRangeEnd":
+                setPageRangeEnd(e.target.value);
+                break;
+            case "pageCount":
+                setPageCount(e.target.value);
+                break;
+            default:
+                break;
+        }
+    }
+
     let handleSubmit = function(e){
         e.preventDefault();
  
@@ -46,30 +65,22 @@ export function UploadForm(){
             <form className="ui form" onSubmit={handleSubmit}>
                 <div className="field">
                     <label>Song Name</label>
-                    <input type="text" placeholder="Song Name" onChange={function(event){
-                        setName(event.target.value);
-                    }}/>
+                    <input type="text" name="name" placeholder="Song Name" onChange={function(e){hangeInputChange(e)}}/>
                 </div>
 
                 <div className="field"> 
                     <label>Page Range Start</label>                    
-                    <input type="number" placeholder="0" onChange={function(event){
-                        setPageRangeStart(event.target.value);
-                    }}/>
+                    <input type="number" name="pageRangeStart" placeholder="0" onChange={function(e){hangeInputChange(e)}}/>
                 </div>
                 
                 <div className="field"> 
                     <label>Page Range End</label>
-                    <input type="number" placeholder="0" onChange={function(event){
-                        setPageRangeEnd(event.target.value);
-                    }}/>
+                    <input type="number" name="pageRangeEnd" placeholder="0" onChange={function(e){hangeInputChange(e)}}/>
                 </div>
 
                 <div className="field"> 
                     <label>Total Range Count</label>
-                    <input type="number" placeholder="0" onChange={function(event){
-                        setPageCount(event.target.value);
-                    }}/>
+                    <input type="number" name="pageCount" placeholder="0" onChange={function(e){hangeInputChange(e)}}/>
                 </div>
                 
                 <div className="field"> 
