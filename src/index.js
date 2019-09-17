@@ -6,7 +6,6 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import 'semantic-ui-css/semantic.min.css'
 
 import NavBar from "./components/nav_bar"
-import Test from "./view/exchange_rate"
 import Home from "./view/home"
 import UploadForm from "./view/upload_form"
 
@@ -22,7 +21,6 @@ const App = () => (
             <Switch>
                 <Route path="/" exact component={Home} />
                 <Route path='/upload_form' component={UploadForm} />
-                <Route path='/test' component={Test} />
             </Switch>
         </Router>
    </ApolloProvider>
