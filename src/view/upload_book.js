@@ -9,9 +9,11 @@ const pageSection = {
 }
 
 const UPLOAD_FORM = gql`
-    mutation uploadBook($name: String!, $fakebookPDF: Upload!, $fakebookCsv: Upload! ){
-        uploadBook(name:$name, fakebook_pdf: $fakebookPDF ,fakebook_csv: $fakebookCsv ){
-            book
+    mutation uploadBook($name: String!, $fakebookPDF: File!, $fakebookCsv: File! ){
+        uploadBook(bookName:$name, fakebookPdf: $fakebookPDF ,fakebookCsv: $fakebookCsv ){
+            book{
+                id
+            }
         }
     }
 `;
@@ -20,7 +22,7 @@ export function UploadForm(){
  
     const [fakebookCSV, setFakebookCSV] = useState();
     const [fakebookPDF, setFakebookPDF] = useState();
-    const [name, setName] = useState();
+    const [name, setName] = useState("");
 
     const [uploadMutation] = useMutation(UPLOAD_FORM);
 
