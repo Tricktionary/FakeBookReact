@@ -9,12 +9,13 @@ const pageSection = {
 }
 
 const GET_ALL_SONGS = gql`
-    query allSongs {
-        allSongs{
-         id
-         name
-       }
-   }
+    query allBooks {
+        allBooks{
+            id
+            bookTitle
+            pdfUrl
+        }
+    }
 `;
 
 export function Home(){
@@ -27,9 +28,9 @@ export function Home(){
     return (
         <div style={pageSection}>
             <h1>FakeBook</h1>
-            {data.allSongs.map( ({ id, name }) => (
+            {data.allBooks.map( ({ id, bookTitle, pdfUrl }) => (
                 <div key={id}>
-                    ID:{id} || Song Name: {name}
+                    <a href={"/book/?id="+id}> Book:{bookTitle} </a>
                 </div>
             ))}
             </div>

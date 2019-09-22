@@ -12,6 +12,7 @@ import NavBar from "./components/nav_bar"
 import Home from "./view/home"
 import CreateSongForm from "./view/create_song_form"
 import UploadBook from "./view/upload_book"
+import BookView from "./view/book_view"
 
 const link = createUploadLink({ uri: "http://localhost:4000/graphql" });
 
@@ -28,6 +29,7 @@ const App = () => (
                 <Route path="/" exact component={Home} />
                 <Route path='/create_song' component={CreateSongForm} />
                 <Route path="/upload_form" component={UploadBook} />
+                <Route path="/book" component={BookView} />
             </Switch>
         </Router>
    </ApolloProvider>

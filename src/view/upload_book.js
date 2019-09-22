@@ -9,8 +9,8 @@ const pageSection = {
 }
 
 const UPLOAD_FORM = gql`
-    mutation uploadBook($name: String!, $fakebookPDF: File!, $fakebookCsv: File! ){
-        uploadBook(bookName:$name, fakebookPdf: $fakebookPDF ,fakebookCsv: $fakebookCsv ){
+    mutation uploadBook($bookTitle: String!, $fakebookPDF: File!, $fakebookCsv: File! ){
+        uploadBook(bookTitle:$bookTitle, fakebookPdf: $fakebookPDF ,fakebookCsv: $fakebookCsv ){
             book{
                 id
             }
@@ -22,7 +22,7 @@ export function UploadForm(){
  
     const [fakebookCSV, setFakebookCSV] = useState();
     const [fakebookPDF, setFakebookPDF] = useState();
-    const [name, setName] = useState("");
+    const [bookTitle, setBookTitle] = useState("");
 
     const [uploadMutation] = useMutation(UPLOAD_FORM);
 
@@ -32,7 +32,7 @@ export function UploadForm(){
 
         uploadMutation({ 
             variables: {
-                name: name, 
+                bookTitle: bookTitle, 
                 fakebookPDF: fakebookPDF,
                 fakebookCsv: fakebookCSV,
             } 
@@ -40,12 +40,10 @@ export function UploadForm(){
     }
 
     let handleInputChange = function(e){
-        console.log(e.target.files[0]);
-
         switch(e.target.name){
-            case "name":
-                setName(e.target.name);
-                break;
+            case "bookTitle":
+                setBookTitle(e.target.value);
+                 break;
             case "fakebookPDF":
                 setFakebookPDF(e.target.files[0]);
                 break;
@@ -64,8 +62,8 @@ export function UploadForm(){
             <form className="ui form" onSubmit={handleSubmit}>
                 
                 <div className="field">
-                    <label>Book Name</label>
-                    <input type="text" name="name" placeholder="Book Name" />
+                    <label>Book Title</label>
+                    <input type="text" name="bookTitle" placeholder="Book Title" onChange={function(e){handleInputChange(e)}}/>
                 </div>
                 <div className="field">
                     <label>FakeBook PDF</label>
