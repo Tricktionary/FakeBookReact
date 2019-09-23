@@ -30,10 +30,10 @@ export function Home(){
             <h1>FakeBook</h1>
             {data.allBooks.map( ({ id, bookTitle, pdfUrl }) => (
                 <div key={id}>
-                    <a href={"/book/?id="+id}> Book:{bookTitle} </a>
+                    <a href={"/book/"+id}> Book:{bookTitle} </a>
                 </div>
             ))}
-            </div>
+        </div>
     );
     
 }

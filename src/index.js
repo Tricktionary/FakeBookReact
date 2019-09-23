@@ -29,7 +29,7 @@ const App = () => (
                 <Route path="/" exact component={Home} />
                 <Route path='/create_song' component={CreateSongForm} />
                 <Route path="/upload_form" component={UploadBook} />
-                <Route path="/book" component={BookView} />
+                <Route path="/book/:id" component={BookView} />
             </Switch>
         </Router>
    </ApolloProvider>
