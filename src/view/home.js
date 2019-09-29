@@ -9,12 +9,16 @@ const pageSection = {
 }
 
 const GET_ALL_SONGS = gql`
-    query allSongs {
+    query{
+        allBooks{
+            id
+            bookTitle
+        }
         allSongs{
-         id
-         name
-       }
-   }
+            id
+            name
+        }
+    }
 `;
 
 export function Home(){
@@ -25,14 +29,31 @@ export function Home(){
     if (error) return <p>Error :(</p>;
 
     return (
-        <div style={pageSection}>
+        <div style={pageSection} >
             <h1>FakeBook</h1>
-            {data.allSongs.map( ({ id, name }) => (
-                <div key={id}>
-                    ID:{id} || Song Name: {name}
+            
+            <div class="ui grid"> 
+                <div class="eight wide column">
+                    <h3>Books</h3>
+                    {data.allBooks.map( ({ id, bookTitle }) => (
+                        <div key={id}>
+                            <a href={"/book/"+id}> Book:{bookTitle} </a>
+                        </div>
+                    ))}
                 </div>
-            ))}
+
+                
+                <div class="eight wide column"> 
+                    <h3>Songs</h3>
+                    {data.allSongs.map( ({ id, name }) => (
+                        <div key={id}>
+                            <a href={"/song/"+id}> Song: {name} </a>
+                        </div>
+                    ))}
+                </div>
             </div>
+
+        </div>
     );
     
 }
