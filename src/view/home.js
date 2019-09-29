@@ -32,7 +32,7 @@ export function Home(){
         <div style={pageSection} >
             <h1>FakeBook</h1>
             
-            <div class="ui grid"> 
+            <div className="ui grid"> 
                 <div class="eight wide column">
                     <h3>Books</h3>
                     {data.allBooks.map( ({ id, bookTitle }) => (
@@ -43,7 +43,7 @@ export function Home(){
                 </div>
 
                 
-                <div class="eight wide column"> 
+                <div className="eight wide column"> 
                     <h3>Songs</h3>
                     {data.allSongs.map( ({ id, name }) => (
                         <div key={id}>

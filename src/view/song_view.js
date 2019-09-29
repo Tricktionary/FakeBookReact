@@ -19,6 +19,10 @@ const GET_SONG = gql`
             id
             name
             pdfUrl
+    		book{
+                id
+                bookTitle
+            }
         }
     }
 `;
@@ -33,6 +37,7 @@ export function SongView(props){
     return (
         <div style={pageSection}>
             <h1>View Song: {data.getSong.name}</h1>
+            <a  href={"/book/"+data.getSong.book.id} >Go to book: {data.getSong.book.bookTitle}</a>
             <iframe title="song_frame" src={data.getSong.pdfUrl} style={pdfWindow}></iframe>
 
         </div>
