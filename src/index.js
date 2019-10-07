@@ -10,10 +10,10 @@ import 'semantic-ui-css/semantic.min.css'
 
 import NavBar from "./components/nav_bar"
 import Home from "./view/home"
-import CreateSongForm from "./view/create_song_form"
 import UploadBook from "./view/upload_book"
 import BookView from "./view/book_view"
 import SongView from './view/song_view';
+import SearchView from './view/search_view'
 
 const link = createUploadLink({ uri: "http://localhost:4000/graphql" });
 
@@ -28,10 +28,10 @@ const App = () => (
         <Router>
             <Switch>
                 <Route path="/" exact component={Home} />
-                <Route path='/create_song' component={CreateSongForm} />
                 <Route path="/upload_form" component={UploadBook} />
                 <Route path="/book/:id" component={BookView} />
                 <Route path="/song/:id" component={SongView} />
+                <Route path="/search" component={SearchView} />
             </Switch>
         </Router>
    </ApolloProvider>

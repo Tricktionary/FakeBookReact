@@ -24,7 +24,6 @@ const GET_BOOK = gql`
 `;
   
 export function BookView(props){
-    console.log(props)
     const { loading, error, data } = useQuery(GET_BOOK, { variables: { id: parseInt(props.match.params.id) } });
      
     if (loading) return <p>Loading...</p>;
