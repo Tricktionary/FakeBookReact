@@ -9,7 +9,7 @@ const pageSection = {
 }
 
 const height = {
-    height: "300px"
+    marginTop: "300px"
 }
 
 const GET_ALL_THINGS = gql`
@@ -17,6 +17,7 @@ const GET_ALL_THINGS = gql`
         allSongs(first:10, after:$songCursor){
             pageInfo{
                 endCursor
+                hasNextPage
             }
             nodes {
                 id
@@ -25,7 +26,8 @@ const GET_ALL_THINGS = gql`
         }
         allBooks(first:10, after:$bookCursor){
             pageInfo{
-                    endCursor
+                endCursor
+                hasNextPage
             }
             nodes {
                 id
@@ -40,7 +42,7 @@ export function Home(){
     const [bookCursor, setBookCursor] = useState("");
     const [songCursor, setSongCursor] = useState("");
 
-    const { loading, error, data } = 
+    const { loading, error, data, fetchMore} = 
         useQuery(GET_ALL_THINGS,  
             {
                 variables: { 
@@ -50,29 +52,36 @@ export function Home(){
             }
         );
     
-    function nextPage(e){
+    function loadMore(e){
         console.log("Next "+ e.target.name);
         switch(e.target.name){
             case "nextBook":
+                fetchMore({
+                    variables: {
+                        bookCursor: data.allBooks.pageInfo.endCursor
+                    },
+                    updateQuery: ( previousResult, { fetchMoreResult }) => {
+                        const newData = fetchMoreResult.allBooks.nodes
+                        const pageInfo = fetchMoreResult.allBooks.pageInfo;
+                    }
+                })
                 break;
             case "nextSong":
+                fetchMore({
+                    variables: {
+                        songCursor: data.allSongs.pageInfo.endCursor
+                    },
+                    updateQuery: ( previousResult, { fetchMoreResult }) => {
+                        const newData = fetchMoreResult.allSongs.nodes
+                        const pageInfo = fetchMoreResult.allSongs.pageInfo;
+                    }
+                })
                 break;
             default:
                 break;
         }
     }
-
-    function prevPage(e){
-        console.log("Prev "+ e.target.name)
-        switch(e.target.name){
-            case "prevBook":
-                break;
-            case "prevSong":
-                break;
-            default:
-                break;
-        }
-    }
+ 
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
@@ -85,7 +94,7 @@ export function Home(){
             <div className="ui grid"> 
 
                 <div className="eight wide column">
-                    <div className="row" style={height}>
+                    <div className="row">
                         <h3>Books</h3>
                         {data.allBooks.nodes.map( ({ id, bookTitle }) => (
                             <div key={id}>
@@ -94,19 +103,16 @@ export function Home(){
                         ))}
                     </div>
                     <div className="row">
-                        <div className="floatDown">
-                            <button name="prevBook" className="ui button" onClick={prevPage}>
-                                Prev
-                            </button>
-                            <button name="nextBook" className="ui button" onClick={nextPage}>
-                                Next
+                        <div className="floatDown" style={height}>
+                            <button name="nextBook" className="ui button" onClick={loadMore}>
+                                More
                             </button>
                         </div>
                     </div>
                 </div>    
 
                 <div className="eight wide column"> 
-                    <div className="row" style={height}> 
+                    <div className="row"> 
                         <h3>Songs</h3>
                         {data.allSongs.nodes.map( ({ id, name }) => (
                             <div key={id}>
@@ -115,16 +121,14 @@ export function Home(){
                         ))}
                     </div>
                     <div className="row">
-                        <div className="floatDown">
-                            <button name="prevSong" className="ui button" onClick={prevPage}>
-                                Prev
-                            </button>
-                            <button name="nextSong" className="ui button" onClick={nextPage}>
-                                Next
+                        <div className="floatDown" style={height}>
+                            <button name="nextSong" className="ui button" onClick={loadMore}>
+                                More
                             </button>
                         </div>
                     </div>
                 </div>
+
                 
             </div>
 
