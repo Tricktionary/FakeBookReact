@@ -35,7 +35,7 @@ const GET_ALL_THINGS = gql`
     }
 `
 
-export function Home(prop){
+export function Home(){
     
     const [bookCursor, setBookCursor] = useState("");
     const [songCursor, setSongCursor] = useState("");
@@ -49,16 +49,41 @@ export function Home(prop){
                 }
             }
         );
-        
+    
+    function nextPage(e){
+        console.log("Next "+ e.target.name);
+        switch(e.target.name){
+            case "nextBook":
+                break;
+            case "nextSong":
+                break;
+            default:
+                break;
+        }
+    }
+
+    function prevPage(e){
+        console.log("Prev "+ e.target.name)
+        switch(e.target.name){
+            case "prevBook":
+                break;
+            case "prevSong":
+                break;
+            default:
+                break;
+        }
+    }
+
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
 
     return (
+        
         <div style={pageSection} >
             <h1>FakeBook</h1>
             
             <div className="ui grid"> 
-            
+
                 <div className="eight wide column">
                     <div className="row" style={height}>
                         <h3>Books</h3>
@@ -70,10 +95,10 @@ export function Home(prop){
                     </div>
                     <div className="row">
                         <div className="floatDown">
-                            <button className="ui button">
+                            <button name="prevBook" className="ui button" onClick={prevPage}>
                                 Prev
                             </button>
-                            <button className="ui button">
+                            <button name="nextBook" className="ui button" onClick={nextPage}>
                                 Next
                             </button>
                         </div>
@@ -91,10 +116,10 @@ export function Home(prop){
                     </div>
                     <div className="row">
                         <div className="floatDown">
-                            <button className="ui button">
+                            <button name="prevSong" className="ui button" onClick={prevPage}>
                                 Prev
                             </button>
-                            <button className="ui button">
+                            <button name="nextSong" className="ui button" onClick={nextPage}>
                                 Next
                             </button>
                         </div>
