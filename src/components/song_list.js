@@ -9,7 +9,7 @@ const height = {
 
 const GET_SONGS = gql`
     query allSongs( $songCursor:String! ){
-        allSongs(first:10, after:$songCursor){
+        songs(first:10, after:$songCursor){
             pageInfo{
                 endCursor
                 hasNextPage
@@ -40,7 +40,7 @@ export function SongList(){
     useEffect(() => {
         if(!error && !loading){
             console.log(data);
-            setSongs(data.allSongs.nodes);
+            setSongs(songs.concat(data.songs.nodes));
         }
     }, [data, error, loading])
 
@@ -48,11 +48,11 @@ export function SongList(){
     function loadMore(){
         fetchMore({
             variables: {
-                songCursor: data.allSongs.pageInfo.endCursor
+                songCursor: data.songs.pageInfo.endCursor
             },
             updateQuery: ( previousResult, { fetchMoreResult }) => {
-                const newData = fetchMoreResult.allSongs.nodes
-                const pageInfo = fetchMoreResult.allSongs.pageInfo;
+                const newData = fetchMoreResult.songs.nodes
+                const pageInfo = fetchMoreResult.songs.pageInfo;
                 setSongCursor(pageInfo.endCursor);
                 setSongs(songs.concat(newData))
             }

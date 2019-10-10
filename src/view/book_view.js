@@ -17,7 +17,7 @@ const GET_BOOK = gql`
     query getBook($id: Int!){
         getBook(id:$id){
                 id
-                bookTitle
+                title
                 pdfUrl
         }
     }
@@ -31,7 +31,7 @@ export function BookView(props){
 
     return (
         <div style={pageSection}>
-            <h1>View Book: {data.getBook.bookTitle}</h1>
+            <h1>View Book: {data.getBook.title}</h1>
             <iframe title="book_frame" src={data.getBook.pdfUrl} style={pdfWindow}></iframe>
 
         </div>

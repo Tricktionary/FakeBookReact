@@ -9,8 +9,8 @@ const pageSection = {
 }
 
 const UPLOAD_FORM = gql`
-    mutation uploadBook($bookTitle: String!, $fakebookPDF: File!, $fakebookCsv: File! ){
-        uploadBook(bookTitle:$bookTitle, fakebookPdf: $fakebookPDF ,fakebookCsv: $fakebookCsv ){
+    mutation uploadBook($title: String!, $fakebookPDF: File!, $fakebookCsv: File! ){
+        uploadBook(title:$title, fakebookPdf: $fakebookPDF ,fakebookCsv: $fakebookCsv ){
             book{
                 id
             }
@@ -22,7 +22,7 @@ export function UploadForm(){
  
     const [fakebookCSV, setFakebookCSV] = useState();
     const [fakebookPDF, setFakebookPDF] = useState();
-    const [bookTitle, setBookTitle] = useState("");
+    const [title, setTitle] = useState("");
 
     const [uploadMutation] = useMutation(UPLOAD_FORM);
 
@@ -32,7 +32,7 @@ export function UploadForm(){
 
         uploadMutation({ 
             variables: {
-                bookTitle: bookTitle, 
+                title: title, 
                 fakebookPDF: fakebookPDF,
                 fakebookCsv: fakebookCSV,
             } 
@@ -41,8 +41,8 @@ export function UploadForm(){
 
     let handleInputChange = function(e){
         switch(e.target.name){
-            case "bookTitle":
-                setBookTitle(e.target.value);
+            case "title":
+                setTitle(e.target.value);
                  break;
             case "fakebookPDF":
                 setFakebookPDF(e.target.files[0]);
@@ -63,7 +63,7 @@ export function UploadForm(){
                 
                 <div className="field">
                     <label>Book Title</label>
-                    <input type="text" name="bookTitle" placeholder="Book Title" onChange={function(e){handleInputChange(e)}}/>
+                    <input type="text" name="title" placeholder="Book Title" onChange={function(e){handleInputChange(e)}}/>
                 </div>
                 <div className="field">
                     <label>FakeBook PDF</label>

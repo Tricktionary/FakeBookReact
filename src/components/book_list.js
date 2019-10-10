@@ -9,14 +9,14 @@ const height = {
 
 const GET_BOOKS = gql`
     query allThings($bookCursor: String!){
-        allBooks(first:10, after:$bookCursor){
+        books(first:10, after:$bookCursor){
             pageInfo{
                 endCursor
                 hasNextPage
             }
             nodes {
                 id
-                bookTitle
+                title
             }
         }  
     }
@@ -40,7 +40,7 @@ export function BookList(){
     useEffect(() => {
         if(!error && !loading){
             console.log(data);
-            setBooks(data.allBooks.nodes);
+            setBooks(books.concat(data.books.nodes));
         }
     }, [data, error, loading])
 
@@ -48,11 +48,13 @@ export function BookList(){
     function loadMore(){
         fetchMore({
             variables: {
-                bookCursor: data.allBooks.pageInfo.endCursor
+                bookCursor: data.books.pageInfo.endCursor
             },
             updateQuery: ( previousResult, { fetchMoreResult }) => {
-                const newData = fetchMoreResult.allBooks.nodes
-                const pageInfo = fetchMoreResult.allBooks.pageInfo;
+                const newData = fetchMoreResult.books.nodes
+                const pageInfo = fetchMoreResult.books.pageInfo;
+                setBookCursor(pageInfo.endCursor);
+                setBooks(books.concat(newData))
             }
         })
     }
@@ -61,9 +63,9 @@ export function BookList(){
         <div>
             <div className="row">
                 <h3>Books</h3>
-                {books.map( ({ id, bookTitle }) => (
+                {books.map( ({ id, title }) => (
                     <div key={id}>
-                        <a href={"/book/"+id}> Book:{bookTitle} </a>
+                        <a href={"/book/"+id}> Book:{title} </a>
                     </div>
                 ))}
             </div>
