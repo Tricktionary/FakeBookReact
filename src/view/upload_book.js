@@ -13,6 +13,7 @@ const UPLOAD_FORM = gql`
         uploadBook(title:$title, fakebookPdf: $fakebookPDF ,fakebookCsv: $fakebookCsv ){
             book{
                 id
+                pdfUrl
             }
         }
     }
@@ -24,7 +25,7 @@ export function UploadForm(){
     const [fakebookPDF, setFakebookPDF] = useState();
     const [title, setTitle] = useState("");
 
-    const [uploadMutation] = useMutation(UPLOAD_FORM);
+    const [uploadMutation , {loading: mutationLoading}] = useMutation(UPLOAD_FORM);
 
     let handleSubmit = function(e){
         e.preventDefault();
@@ -38,6 +39,7 @@ export function UploadForm(){
             } 
         });
     }
+    console.log(uploadMutation)
 
     let handleInputChange = function(e){
         switch(e.target.name){
@@ -53,6 +55,14 @@ export function UploadForm(){
             default:
                 break;
         }
+    }
+
+    let buttonText;
+    
+    if (mutationLoading){
+        buttonText =  "Uploading";
+    }else{
+        buttonText =  "Upload";
     }
 
     return (
@@ -75,9 +85,13 @@ export function UploadForm(){
                 </div>
 
                 <div className="field"> 
-                    <button className="ui button green" type="submit">Upload Book</button>
+                    <button className={ `ui button green ${mutationLoading ? 'loading' : ''}`} type="submit">{buttonText}</button>
                 </div>
 
+                <div>
+                    <a href={"/book/"+uploadMutation}> Book:{title} </a>
+                </div>
+                 
             </form>
         </div>
       );
