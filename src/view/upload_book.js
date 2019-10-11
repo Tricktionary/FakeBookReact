@@ -9,8 +9,8 @@ const pageSection = {
 }
 
 const UPLOAD_FORM = gql`
-    mutation uploadBook($title: String!, $fakebookPDF: File!, $fakebookCsv: File! ){
-        uploadBook(title:$title, fakebookPdf: $fakebookPDF ,fakebookCsv: $fakebookCsv ){
+    mutation uploadBook($title: String!, $fakebookPDF: File!, $fakebookCsv: File! , $pageCount: Int!){
+        uploadBook(title:$title, fakebookPdf: $fakebookPDF ,fakebookCsv: $fakebookCsv, pageCount: $pageCount ){
             book{
                 id
                 pdfUrl
@@ -24,7 +24,7 @@ export function UploadForm(){
     const [fakebookCSV, setFakebookCSV] = useState();
     const [fakebookPDF, setFakebookPDF] = useState();
     const [title, setTitle] = useState("");
-
+    const [pageCount, setPageCount] = useState();
     const [uploadMutation , {loading: mutationLoading}] = useMutation(UPLOAD_FORM);
 
     let handleSubmit = function(e){
@@ -36,6 +36,7 @@ export function UploadForm(){
                 title: title, 
                 fakebookPDF: fakebookPDF,
                 fakebookCsv: fakebookCSV,
+                pageCount: pageCount
             } 
         });
     }
@@ -51,6 +52,9 @@ export function UploadForm(){
                 break;
             case "fakebookCSV":
                 setFakebookCSV(e.target.files[0]);
+                break;
+            case "pageCount":
+                setPageCount(parseInt(e.target.value));
                 break;
             default:
                 break;
@@ -84,13 +88,17 @@ export function UploadForm(){
                     <input type="file" name="fakebookCSV" onChange={function(e){handleInputChange(e)}} />
                 </div>
 
+
+                <div className="field">
+                <label>Page Count</label>
+                    <input type="number" name="pageCount" onChange={function(e){handleInputChange(e)}} />
+                </div>
+
+
                 <div className="field"> 
                     <button className={ `ui button green ${mutationLoading ? 'loading' : ''}`} type="submit">{buttonText}</button>
                 </div>
 
-                <div>
-                    <a href={"/book/"+uploadMutation}> Book:{title} </a>
-                </div>
                  
             </form>
         </div>
