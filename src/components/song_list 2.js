@@ -40,7 +40,7 @@ export function SongList(){
     useEffect(() => {
         if(!error && !loading){
             console.log(data);
-            setSongs(data.songs.nodes);
+            setSongs(songs.concat(data.songs.nodes));
         }
     }, [data, error, loading])
 
