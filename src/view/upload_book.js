@@ -46,7 +46,7 @@ export function UploadForm(){
         switch(e.target.name){
             case "title":
                 setTitle(e.target.value);
-                 break;
+                break;
             case "fakebookPDF":
                 setFakebookPDF(e.target.files[0]);
                 break;
@@ -87,7 +87,6 @@ export function UploadForm(){
                 <label>FakeBook CSV</label>
                     <input type="file" name="fakebookCSV" onChange={function(e){handleInputChange(e)}} />
                 </div>
-
 
                 <div className="field">
                 <label>Page Count</label>

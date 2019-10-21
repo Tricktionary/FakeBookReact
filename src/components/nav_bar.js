@@ -40,7 +40,17 @@ export default class MenuExampleBasic extends Component {
           >
             Search
           </Menu.Item>
+          <Menu.Item
+            name='searchByPage'
+            href="/searchByPage"
+            active={activeItem === 'searchByPage'}
+            onClick={this.handleItemClick}
+          >
+            Search by page
+          </Menu.Item>
         </Menu.Menu>
+
+      
       </Menu>
     )
   }

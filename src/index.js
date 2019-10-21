@@ -13,7 +13,8 @@ import Home from "./view/home"
 import UploadBook from "./view/upload_book"
 import BookView from "./view/book_view"
 import SongView from './view/song_view';
-import SearchView from './view/search_view'
+import SearchView from './view/general_search_view'
+import SearchByPage from './view/search_by_page'
 
 const link = createUploadLink({ uri: "http://localhost:4000/graphql" });
 
@@ -32,7 +33,8 @@ const App = () => (
                 <Route path="/book/:id" component={BookView} />
                 <Route path="/song/:id" component={SongView} />
                 <Route path="/search" component={SearchView} />
-            </Switch>
+                <Route path="/searchByPage" component={SearchByPage} />
+             </Switch>
         </Router>
    </ApolloProvider>
 );
