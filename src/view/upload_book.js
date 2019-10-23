@@ -24,7 +24,7 @@ export function UploadForm(){
     const [fakebookCSV, setFakebookCSV] = useState();
     const [fakebookPDF, setFakebookPDF] = useState();
     const [title, setTitle] = useState("");
-    const [uploadMutation , {loading: mutationLoading}] = useMutation(UPLOAD_FORM);
+    const [uploadMutation , {loading: mutationLoading, error: mutationError}] = useMutation(UPLOAD_FORM);
 
     let handleSubmit = function(e){
         e.preventDefault();
@@ -38,7 +38,6 @@ export function UploadForm(){
             } 
         });
     }
-    console.log(uploadMutation)
 
     let handleInputChange = function(e){
         switch(e.target.name){
@@ -64,6 +63,15 @@ export function UploadForm(){
         buttonText =  "Upload";
     }
 
+    let errorText;
+
+    if (mutationError){ 
+        let error = JSON.parse(JSON.stringify(mutationError))['graphQLErrors'];
+        errorText = error[0].message
+    }else{
+        errorText="";
+    }
+
     return (
         <div style={pageSection}>
             <h1>Upload Book</h1>
@@ -72,21 +80,22 @@ export function UploadForm(){
                 
                 <div className="field">
                     <label>Book Title</label>
-                    <input type="text" name="title" placeholder="Book Title" onChange={function(e){handleInputChange(e)}}/>
+                    <input type="text" name="title" placeholder="Book Title" onChange={function(e){handleInputChange(e)}} required/>
                 </div>
                 <div className="field">
                     <label>FakeBook PDF</label>
-                    <input type="file" name="fakebookPDF" onChange={function(e){handleInputChange(e)}} />
+                    <input type="file" name="fakebookPDF" onChange={function(e){handleInputChange(e)}} required/>
                 </div>
                 <div className="field">
                 <label>FakeBook CSV</label>
-                    <input type="file" name="fakebookCSV" onChange={function(e){handleInputChange(e)}} />
+                    <input type="file" name="fakebookCSV" onChange={function(e){handleInputChange(e)}} required/>
                 </div>
 
                 <div className="field"> 
                     <button className={ `ui button green ${mutationLoading ? 'loading' : ''}`} type="submit">{buttonText}</button>
                 </div>
 
+                <p>{errorText}</p>
                  
             </form>
         </div>
