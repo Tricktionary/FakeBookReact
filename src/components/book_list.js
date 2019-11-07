@@ -22,7 +22,6 @@ const GET_BOOKS = gql`
     }
 `
 
-
 export function BookList(){
     const [bookCursor, setBookCursor] = useState("");
     const [books, setBooks] = useState([]);
