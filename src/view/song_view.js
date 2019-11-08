@@ -1,6 +1,8 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
+import EditSongModal from '../components/edit_modal_song'
+
  
 const pageSection = {
     marginLeft: '10%',
@@ -37,9 +39,9 @@ export function SongView(props){
     return (
         <div style={pageSection}>
             <h1>View Song: {data.getSong.name}</h1>
+            <EditSongModal song_name={data.getSong.name} song_id={props.match.params.id} />
             <a  href={"/book/"+data.getSong.book.id} >Go to book: {data.getSong.book.title}</a>
             <iframe title="song_frame" src={data.getSong.pdfUrl} style={pdfWindow}></iframe>
-
         </div>
     );
     

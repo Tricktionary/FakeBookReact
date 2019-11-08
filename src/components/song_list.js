@@ -22,7 +22,6 @@ const GET_SONGS = gql`
     }
 `
 
-
 export function SongList(){
     const [songs, setSongs] = useState([]);
     const [songCursor, setSongCursor] = useState("");

@@ -13,6 +13,7 @@
     "graphql": "^14.5.4",
     "http-proxy-middleware": "^0.20.0",
     "is-root": "^2.1.0",
+    "jquery": "^3.4.1",
     "package.json": "^2.0.1",
     "pinkie-promise": "^2.0.1",
     "react": "^16.9.0",
