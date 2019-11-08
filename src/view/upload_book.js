@@ -9,6 +9,7 @@ const pageSection = {
 }
 
 const UPLOAD_FORM = gql`
+
     mutation uploadBook($title: String!, $fakebookPDF: File!, $fakebookCsv: File!  ){
         uploadBook(title:$title, fakebookPdf: $fakebookPDF ,fakebookCsv: $fakebookCsv ){
             book{
@@ -26,6 +27,7 @@ export function UploadForm(){
     const [title, setTitle] = useState("");
     const [uploadMutation , {loading: mutationLoading, error: mutationError}] = useMutation(UPLOAD_FORM);
 
+
     let handleSubmit = function(e){
         e.preventDefault();
         console.log("Submit book form")
@@ -35,9 +37,11 @@ export function UploadForm(){
                 title: title, 
                 fakebookPDF: fakebookPDF,
                 fakebookCsv: fakebookCSV,
+                pageCount: pageCount
             } 
         });
     }
+    console.log(uploadMutation)
 
     let handleInputChange = function(e){
         switch(e.target.name){
@@ -49,6 +53,9 @@ export function UploadForm(){
                 break;
             case "fakebookCSV":
                 setFakebookCSV(e.target.files[0]);
+                break;
+            case "pageCount":
+                setPageCount(parseInt(e.target.value));
                 break;
             default:
                 break;
@@ -91,11 +98,17 @@ export function UploadForm(){
                     <input type="file" name="fakebookCSV" onChange={function(e){handleInputChange(e)}} required/>
                 </div>
 
+                <div className="field">
+                <label>Page Count</label>
+                    <input type="number" name="pageCount" onChange={function(e){handleInputChange(e)}} />
+                </div>
+
+
                 <div className="field"> 
                     <button className={ `ui button green ${mutationLoading ? 'loading' : ''}`} type="submit">{buttonText}</button>
                 </div>
-
                 <p>{errorText}</p>
+
                  
             </form>
         </div>
