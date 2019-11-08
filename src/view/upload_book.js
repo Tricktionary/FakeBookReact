@@ -37,7 +37,6 @@ export function UploadForm(){
                 title: title, 
                 fakebookPDF: fakebookPDF,
                 fakebookCsv: fakebookCSV,
-                pageCount: pageCount
             } 
         });
     }
@@ -53,9 +52,6 @@ export function UploadForm(){
                 break;
             case "fakebookCSV":
                 setFakebookCSV(e.target.files[0]);
-                break;
-            case "pageCount":
-                setPageCount(parseInt(e.target.value));
                 break;
             default:
                 break;
