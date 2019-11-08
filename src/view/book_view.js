@@ -28,7 +28,6 @@ const GET_BOOK = gql`
         }
     }
 `;
- 
 
 export function BookView(props){
     const { loading, error, data } = useQuery(GET_BOOK, { variables: { id: parseInt(props.match.params.id) } });
@@ -43,8 +42,7 @@ export function BookView(props){
             <ViewSongModal book_title={data.getBook.title} songs={data.getBook.song} />
             <iframe title="book_frame" src={data.getBook.pdfUrl} style={pdfWindow}></iframe>
         </div>
-    );
-    
+    );   
 }
 
 export default BookView
