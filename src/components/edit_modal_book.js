@@ -64,7 +64,7 @@ export function EditBookModal(props){
 
   return(
     <Modal trigger={<Button color='green' >Edit</Button>}>
-      <Modal.Header>Edit Book: {props.book_title}</Modal.Header>
+      <Modal.Header>Edit Book: {title}</Modal.Header>
       <Modal.Content>
         <Modal.Description>
           <form className="ui form" >
