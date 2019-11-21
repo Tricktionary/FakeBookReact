@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useLazyQuery } from '@apollo/react-hooks';
-import { gql } from 'apollo-boost';
+import SongList from '../components/song_list'
+import BookList from '../components/book_list'
 
 const pageSection = {
     marginLeft: '10%',
@@ -8,41 +8,15 @@ const pageSection = {
     width: '80%'
 } 
   
-const GENERAL_SEARCH = gql`
-    query search($name: String!){
-        songs(name:$name){
-            nodes{
-                id
-                name
-                book{
-                    title
-                    id
-                }
-            }
-        }
-        books(title:$name){
-            nodes{
-                id
-                title
-            }
-        }
-    }
-`
-
 export function GeneralSearchView(){  
     const [name, setName] = useState();
-    
-    const [search,{ called, loading, data }] = useLazyQuery(GENERAL_SEARCH);
+    const [called, setCalled] = useState(false);
+
 
     // Handle Form Submit
     let handleSubmit = function(e){
         e.preventDefault();
-        console.log("Search")
-        search({
-            variables:{
-                name:name
-            }
-        });
+        setCalled(true)
     }
     
     // Handle the input change
@@ -72,11 +46,6 @@ export function GeneralSearchView(){
         )
     }
 
-    if (called && loading) return <p>Loading ...</p>
-
-    if (data) {
-        console.log(data);
-    }
       
     return (
         <div style={pageSection}>
@@ -86,23 +55,14 @@ export function GeneralSearchView(){
 
                 {/* Book View */}
                 <div className="eight wide column">
-                    <h3>Books</h3>
-                    {data.books.nodes.map(book => (
-                        <div key={book.id +"/" + book.title}>
-                        <a href={"/book/"+book.id}> Book: {book.title} </a>
-                        </div>
-                    ))}
+                    <BookList book_name={name}/>
                 </div>    
                 
                 {/* Song List */}
                 <div className="eight wide column"> 
-                    <h3>Songs</h3>
-                    {data.songs.nodes.map(song => (
-                        <div key={song.id+"/" + song.name}>
-                        <a href={"/song/"+song.id}> Song: {song.name} FROM {song.book.title} </a>
-                        </div>
-                    ))}
+                    <SongList song_name={name}/>
                 </div>
+ 
             </div>
         </div>
     );  

@@ -18,12 +18,12 @@ export function Home(){
 
                 {/* Book View */}
                 <div className="eight wide column">
-                    <BookList/>
+                    <BookList book_name=""/>
                 </div>    
                 
                 {/* Song List */}
                 <div className="eight wide column"> 
-                    <SongList/>
+                    <SongList song_name=""/>
                 </div>
             </div>
 

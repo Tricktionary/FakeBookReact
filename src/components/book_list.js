@@ -8,8 +8,8 @@ const height = {
 
 
 const GET_BOOKS = gql`
-    query allThings($bookCursor: String!){
-        books(first:10, after:$bookCursor){
+    query allThings($bookCursor: String!, $title:String!){
+        books(first:10, after:$bookCursor, title:$title){
             pageInfo{
                 endCursor
                 hasNextPage
@@ -22,15 +22,17 @@ const GET_BOOKS = gql`
     }
 `
 
-export function BookList(){
+export function BookList(props){
     const [bookCursor, setBookCursor] = useState("");
     const [books, setBooks] = useState([]);
+    const [title, setTitle] = useState(props.book_name);
 
     const { loading, error, data, fetchMore} = 
         useQuery(GET_BOOKS,  
             {
                 variables: { 
                     bookCursor: bookCursor,
+                    title: title
                  }
             }
         );
@@ -38,7 +40,6 @@ export function BookList(){
     // On Load
     useEffect(() => {
         if(!error && !loading){
-            console.log(data);
             setBooks(books.concat(data.books.nodes));
         }
     }, [data, error, loading])
