@@ -8,8 +8,8 @@ const height = {
 
 
 const GET_SONGS = gql`
-    query allSongs( $songCursor:String! ){
-        songs(first:10, after:$songCursor){
+    query allSongs( $songCursor:String!, $name:String!){
+        songs(first:10, after:$songCursor, name:$name){
             pageInfo{
                 endCursor
                 hasNextPage
@@ -22,23 +22,24 @@ const GET_SONGS = gql`
     }
 `
 
-export function SongList(){
+export function SongList(props){
     const [songs, setSongs] = useState([]);
     const [songCursor, setSongCursor] = useState("");
+    const [name, setName] = useState(props.song_name)
 
     const { loading, error, data, fetchMore} = 
         useQuery(GET_SONGS,  
             {
                 variables: { 
-                    songCursor: songCursor
+                    songCursor: songCursor,
+                    name:name
                 }
             }
         );
-
+            
     // On Load
     useEffect(() => {
         if(!error && !loading){
-            console.log(data);
             setSongs(songs.concat(data.songs.nodes));
         }
     }, [data, error, loading])
