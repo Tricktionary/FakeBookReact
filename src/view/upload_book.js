@@ -94,11 +94,7 @@ export function UploadForm(){
                     <input type="file" name="fakebookCSV" onChange={function(e){handleInputChange(e)}} required/>
                 </div>
 
-                <div className="field">
-                <label>Page Count</label>
-                    <input type="number" name="pageCount" onChange={function(e){handleInputChange(e)}} />
-                </div>
-
+ 
 
                 <div className="field"> 
                     <button className={ `ui button green ${mutationLoading ? 'loading' : ''}`} type="submit">{buttonText}</button>
